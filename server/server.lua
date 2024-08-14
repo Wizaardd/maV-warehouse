@@ -58,6 +58,9 @@ MVS_C.RegisterServerCallback('maV-warehouse:Buy_Warehouse', function(source, dat
             maV_Warehouse[warehousenumber] = data[1]
             SaveResourceFile(GetCurrentResourceName(), "./data/warehouse.json", json.encode(maV_Warehouse, { indent = true }), -1)
             TriggerClientEvent('maV-warehouse:Sync', -1, maV_Warehouse)
+            if MVS.Settings == "ox_inventory" then
+                CreateStash(name)
+            end
             cb(true)
         else
             cb(false)
@@ -65,6 +68,18 @@ MVS_C.RegisterServerCallback('maV-warehouse:Buy_Warehouse', function(source, dat
         
     end
 end)
+
+
+function CreateStash(name)
+    stash = {
+        id = name,
+        label = name,
+        slots = MVS.Settings.OxInventorySettings.slots,
+        weight = MVS.Settings.OxInventorySettings.weight,
+        owner = false,
+    }
+    ox_inventory:RegisterStash(stash.id, stash.label, stash.slots, stash.weight, stash.owner, stash.jobs)
+end
 
 
 MVS_C.RegisterServerCallback('maV-warehouse:CheckPassword', function(source, data, cb)

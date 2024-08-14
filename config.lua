@@ -4,6 +4,11 @@ MVS.Settings = {
     Locale = "en",
     Warehouse_Buy_Money_Type = "bank", -- cash
     Inventory = "qb-inventory", -- ox_inventory, other
+
+    OxInventorySettings = {
+        slots = 50,
+        weight = 10000
+    }
 }
 
 
